@@ -45,4 +45,15 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test
 
+      - name: Create JAR file
+        run: ./gradlew jar
+
+      - name: Publish package
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          arguments: publish
+          env:
+            GITHUB_TOKEN: ${{ secrets.SECRET }}
+
+
 
