@@ -42,4 +42,7 @@ jobs:
           reporter: github-pr-review
           level: warning
 
+      - name: Run unit tests
+        run: ./gradlew test
+
 
