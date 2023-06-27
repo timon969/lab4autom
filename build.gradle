@@ -1,5 +1,11 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'org.example'
@@ -16,4 +22,25 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Github"
+            url = uri("https://maven.pkg.github.com/timon969/lab4autom")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        register("jar", MavenPublication) {
+            from(components["java"])
+            pom {
+                url.set("https://github.com/timon969/lab4autom.git")
+            }
+        }
+    }
 }
